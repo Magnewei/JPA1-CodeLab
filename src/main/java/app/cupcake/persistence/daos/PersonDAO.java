@@ -1,7 +1,7 @@
 package app.cupcake.persistence.daos;
 
 import app.cupcake.HibernateConfig;
-import app.cupcake.persistence.entities.Person;
+import app.cupcake.entities.Person;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.TypedQuery;

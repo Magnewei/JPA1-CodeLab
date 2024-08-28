@@ -1,6 +1,6 @@
 package app.cupcake.persistence.daos;
 
-import app.cupcake.persistence.entities.Person;
+import app.cupcake.entities.Person;
 import org.junit.jupiter.api.Test;
 
 import java.util.Set;

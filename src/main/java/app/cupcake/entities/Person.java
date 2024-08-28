@@ -1,4 +1,4 @@
-package app.cupcake.persistence.entities;
+package app.cupcake.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
