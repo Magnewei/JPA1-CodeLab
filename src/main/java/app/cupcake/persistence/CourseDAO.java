@@ -1,6 +1,7 @@
 package app.cupcake.persistence;
 
 import app.cupcake.HibernateConfig;
+import app.cupcake.entities.Course;
 import app.cupcake.entities.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -10,67 +11,55 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-/**
- * Purpose:
- *
- * @Author: Anton Friis Stengaard
- */
-public class StudentDAO implements iDAO<Student>{
+public class CourseDAO implements iDAO<Course>{
 
     private final EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory();
 
     @Override
-    public void create(Student student) {
+    public void create(Course course) {
         try (EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();
-            em.persist(student);
+            em.persist(course);
             em.getTransaction().commit();
         }
     }
 
-    @Override
-    public void delete(Student student) {
-        try(EntityManager em = emf.createEntityManager()){
-            em.getTransaction().begin();
-            em.remove(student);
-            em.getTransaction().commit();
-            System.out.println("\n Deletion successful  \n");
-        }
-
-    }
 
     public void deleteById(int id) {
         try (EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();
-            em.createQuery("DELETE Student s WHERE s.id = :id").setParameter("id", id).executeUpdate();
+            em.createQuery("DELETE Course s WHERE s.id = :id").setParameter("id", id).executeUpdate();
             em.getTransaction().commit();
         }
     }
 
     @Override
-    public Student getById(int id) {
-        Student student;
-
-        try (EntityManager em = emf.createEntityManager()) {
+    public void delete(Course course) {
+        try(EntityManager em = emf.createEntityManager()){
             em.getTransaction().begin();
-
-            student = em.createQuery("SELECT s FROM Student s WHERE s.id = :id", Student.class)
-                      .setParameter("id", id)
-                      .getSingleResult();
-
-            em.persist(student);
+            em.remove(course);
             em.getTransaction().commit();
-
-            return student;
+            System.out.println("\n Deletion successful  \n");
         }
     }
 
     @Override
-    public Set getAll() {
+    public Course getById(int id) {
+        try (EntityManager em = emf.createEntityManager()) {
+            em.getTransaction().begin();
+            Course course = em.find(Course.class, id);
+            em.getTransaction().commit();
+
+            return course;
+        }
+    }
+
+    @Override
+    public Set<Course> getAll() {
         try (EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();
 
-            TypedQuery<Student> query = em.createQuery("SELECT s FROM Student s", Student.class);
+            TypedQuery<Course> query = em.createQuery("SELECT s FROM Course s", Course.class);
 
             em.getTransaction().commit();
 
@@ -80,17 +69,24 @@ public class StudentDAO implements iDAO<Student>{
     }
 
     @Override
-    public void update(Student student) {
+    public void update(Course course) {
         try (EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();
-            em.merge(student);
+            em.merge(course);
             em.getTransaction().commit();
             System.out.println("\n Update successfull  \n");
         }
     }
 
-    public List<String> getALlCoursesForStudent(int id){
-        Student student = getById(id);
-        return student.getCourseID().stream().map(String::valueOf).collect(Collectors.toList());
-    }
+    public List<String> getALlStudentsForCourses(int courseId){
+        try (EntityManager em = emf.createEntityManager()) {
+            TypedQuery<Student> query = em.createQuery("SELECT s FROM Student s", Student.class);
+            List<Student> allStudents = query.getResultList();
+
+            return allStudents.stream()
+                    .filter(student -> student.getCourseID() != null && student.getCourseID().contains(courseId))
+                    .map(Student::getName)
+                    .collect(Collectors.toList());
+        }
+}
 }

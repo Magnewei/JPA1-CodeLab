@@ -21,6 +21,11 @@ public class PersonDAO implements iDAO{
     }
 
     @Override
+    public void delete(Object type) {
+
+    }
+
+    @Override
     public Object getById(int id) {
         return null;
     }
