@@ -1,4 +1,4 @@
-package app.cupcake.persistence;
+package app.cupcake.persistence.daos;
 
 import app.cupcake.HibernateConfig;
 import app.cupcake.entities.Student;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  *
  * @Author: Anton Friis Stengaard
  */
-public class StudentDAO implements iDAO<Student>{
+public class StudentDAO implements iDAO<Student> {
 
     private final EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory();
 
@@ -78,6 +78,7 @@ public class StudentDAO implements iDAO<Student>{
 
         }
     }
+
 
     @Override
     public void update(Student student) {

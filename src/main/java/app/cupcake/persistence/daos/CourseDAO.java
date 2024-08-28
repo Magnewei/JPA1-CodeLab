@@ -1,4 +1,4 @@
-package app.cupcake.persistence;
+package app.cupcake.persistence.daos;
 
 import app.cupcake.HibernateConfig;
 import app.cupcake.entities.Course;

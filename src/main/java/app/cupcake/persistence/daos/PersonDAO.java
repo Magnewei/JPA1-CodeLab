@@ -27,6 +27,15 @@ public class PersonDAO implements iDAO<Person> {
     }
 
     @Override
+    public void delete(Person type) {
+        try (EntityManager em = emf.createEntityManager()) {
+            em.getTransaction().begin();
+            em.remove(type);
+            em.getTransaction().commit();
+        }
+    }
+
+    @Override
     public Person getById(int id) {
         Person person;
 
@@ -59,9 +68,9 @@ public class PersonDAO implements iDAO<Person> {
     }
 
     @Override
-    public void update(int id) {
+    public void update(Person person) {
         try (EntityManager em = emf.createEntityManager()) {
-            em.createQuery("DELETE Person u WHERE u.id = :id").setParameter("id", id).executeUpdate();
+            em.createQuery("DELETE Person u WHERE u.id = :id").setParameter("id", person.getId()).executeUpdate();
         }
     }
 
