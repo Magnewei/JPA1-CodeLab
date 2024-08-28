@@ -85,14 +85,14 @@ public class HibernateConfig {
     }
 
     private static Properties setDeployedProperties(Properties props) {
-        props.setProperty("hibernate.connection.url", "jpa_day_1");
+        props.setProperty("hibernate.connection.url", "jpademo");
         props.setProperty("hibernate.connection.username", "postgres");
         props.setProperty("hibernate.connection.password", "cphbusiness123");
         return props;
     }
 
     private static Properties setDevProperties(Properties props) {
-        props.put("hibernate.connection.url", "jdbc:postgresql://164.90.196.139:5432/" + "jpa_day_1");
+        props.put("hibernate.connection.url", "jdbc:postgresql://164.90.196.139:5432/" + "jpademo");
         props.put("hibernate.connection.username", "postgres");
         props.put("hibernate.connection.password", "cphbusiness123");
         return props;
