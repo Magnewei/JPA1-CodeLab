@@ -1,4 +1,4 @@
-package app.cupcake.entities;
+package app.cupcake.persistence.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
