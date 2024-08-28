@@ -3,11 +3,9 @@ package app.cupcake.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-/**
- * Purpose:
- *
- * @Author: Anton Friis Stengaard
- */
+import java.util.List;
+
+
 @Getter
 @Setter
 @ToString
@@ -16,14 +14,19 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 @Table
-public class Person {
+public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",unique = true,nullable = false)
     private int id;
     @Column(name = "name",unique = false, nullable = false)
     private String name;
-    @Column(name = "age",unique = false,nullable = false)
-    private int age;
-
+    @Column(name = "phoneNumber",unique = true,nullable = false)
+    private String phoneNumber;
+    @Column(name = "email",unique = true,nullable = false)
+    private String email;
+    @Column(name = "address",unique = false,nullable = false)
+    private String address;
+    @ElementCollection
+    private List<Integer> courseID;
 }
