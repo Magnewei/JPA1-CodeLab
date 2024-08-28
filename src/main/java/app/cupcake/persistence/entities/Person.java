@@ -1,9 +1,6 @@
 package app.cupcake.persistence.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 /**
@@ -20,9 +17,11 @@ import lombok.*;
 @Entity
 @Table
 public class Person {
+
     @Id
-    @Column(name = "id",unique = true,nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(name = "name",unique = false, nullable = false)
     private String name;
     @Column(name = "age",unique = false,nullable = false)
